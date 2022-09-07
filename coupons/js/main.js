@@ -114,9 +114,11 @@
             if (type == "stores") {
               wrapper = document.querySelector(".stores__wrapper");
               childs = document.querySelectorAll(".stores__block");
+
               childs.forEach((item) => {
                 item.remove();
               });
+
               data.forEach((item, i) => {
                 if (i % 5 === 0) {
                   targetColor = colorClasses[4];

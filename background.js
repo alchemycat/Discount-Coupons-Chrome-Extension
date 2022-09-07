@@ -12,9 +12,10 @@ chrome.runtime.onMessage.addListener(async (response, sender, sendResponse) => {
       }
     )
       .then((response) => response.json())
-      .then((body) => {
-        return body.data.filter((item) => item.coupon_count);
-      })
+      // .then((body) => {
+      //   return body.data.filter((item) => item.coupon_count);
+      // })
+      .then((body) => body.data)
       .then((json) => {
         // sendResponse({ data: json });
         chrome.runtime.sendMessage({
