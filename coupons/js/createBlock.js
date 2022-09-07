@@ -36,15 +36,17 @@ function createBlock(parentClass, type, item, parent, targetColor) {
     details.classList.add(`${parentClass}__text`);
     block.append(details);
 
-    if (type != "coupon") {
+    if (type == "coupon") {
       let title = document.createElement("div");
-      title.classList.add(`${parentClass}__title`);
-      title.textContent = "Aliexpress Top Product Ranking";
+      title.classList.add(`${parentClass}__caption`);
+      title.textContent = item.title;
       details.append(title);
     }
 
     let name = document.createElement("div");
     name.textContent = item.content || "empty";
+    console.log(name);
+    console.log(type);
     name.classList.add(`${parentClass}__name`);
     details.append(name);
   }
