@@ -41,9 +41,30 @@
             shop.textContent = shopName;
 
             stores.classList.add("dnone");
+
             chrome.runtime.sendMessage({
               type: "GET_DATA_ID",
               id: e.target.getAttribute("data-id"),
+            });
+            details.classList.remove("dnone");
+          }
+          if (
+            /stores__(name|letter|count)/.test(e.target.getAttribute("class"))
+          ) {
+            const parent = e.target.parentElement.parentElement.parentElement;
+            const id = parent.getAttribute("data-id");
+
+            let shopName = parent.querySelector(".stores__name").textContent;
+
+            const shop = document.querySelector(".details__shop-name span");
+
+            shop.textContent = shopName;
+
+            stores.classList.add("dnone");
+
+            chrome.runtime.sendMessage({
+              type: "GET_DATA_ID",
+              id: id,
             });
             details.classList.remove("dnone");
           }
