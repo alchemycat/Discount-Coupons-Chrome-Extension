@@ -118,7 +118,12 @@ window.onload = () => {
 
             data.forEach((item, i) => {
               targetColor = generateColor(i);
-              createBlock("stores", item, wrapper, targetColor);
+
+              if (item.code) {
+                createBlock("coupon", item, wrapper, targetColor);
+              } else {
+                createBlock("campaign", item, wrapper, targetColor);
+              }
             });
             open();
             copy(".stores");
