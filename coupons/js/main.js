@@ -101,16 +101,38 @@
             let template;
             let wrapper;
             let childs;
+
+            const colorClasses = [
+              "color_red",
+              "color_cyan",
+              "color_violet",
+              "color_green",
+              "color_orange",
+            ];
+            let targetColor;
+
             if (type == "stores") {
               wrapper = document.querySelector(".stores__wrapper");
               childs = document.querySelectorAll(".stores__block");
               childs.forEach((item) => {
                 item.remove();
               });
-              data.forEach((item) => {
+              data.forEach((item, i) => {
+                if (i % 5 === 0) {
+                  targetColor = colorClasses[4];
+                } else if (i % 4 === 0) {
+                  targetColor = colorClasses[3];
+                } else if (i % 3 === 0) {
+                  targetColor = colorClasses[2];
+                } else if (i % 2 === 0) {
+                  targetColor = colorClasses[1];
+                } else if (i % 1 === 0) {
+                  targetColor = colorClasses[0];
+                }
+
                 template = `<div class="stores__block" data-id="${item.id}">
               <div class="stores__info">
-                <div class="stores__icon">
+                <div class="stores__icon ${targetColor}">
                   <span class="stores__letter">${item.name[0]}</span>
                 </div>
                 <div class="stores__details">

@@ -677,4 +677,29 @@ body {
 .dnone {
   display: none;
 }
+
+.color_red {
+  background-color: rgba(255, 106, 129, 0.25);
+  color: rgb(255, 106, 129);
+}
+
+.color_cyan {
+  background-color: rgba(0, 181, 183, 0.25);
+  color: rgb(0, 181, 183);
+}
+
+.color_violet {
+  background-color: rgba(127, 90, 240, 0.25);
+  color: rgb(127, 90, 240);
+}
+
+.color_green {
+  background: rgba(40, 167, 69, 0.25);
+  color: rgb(40, 167, 69);
+}
+
+.color_orange {
+  background-color: rgba(251, 176, 59, 0.25);
+  color: rgb(251, 176, 59);
+}
 /*# sourceMappingURL=main.css.map */
