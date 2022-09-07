@@ -44,7 +44,7 @@ function createBlock(parentClass, type, item, parent, targetColor) {
     }
 
     let name = document.createElement("div");
-    name.textContent = item.content || "empty";
+    name.textContent = item.content || "-";
     console.log(name);
     console.log(type);
     name.classList.add(`${parentClass}__name`);
@@ -118,9 +118,11 @@ function createBlock(parentClass, type, item, parent, targetColor) {
   }
 
   if (!item.code && parentClass != "stores") {
-    let buttonMore = document.createElement("button");
+    let buttonMore = document.createElement("a");
     buttonMore.classList.add("details__more");
     buttonMore.textContent = "Learn more";
+    buttonMore.href = item.affurl;
+    buttonMore.target = "_blank";
     block.append(buttonMore);
   }
 
