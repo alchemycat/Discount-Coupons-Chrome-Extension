@@ -197,12 +197,13 @@
               childs.forEach((item) => {
                 item.remove();
               });
-              // shopName.textContent = "";
 
               data.forEach((item) => {
+                let content = item.content || "...";
+
                 template = `<div class="details__block">
                 <div class="details__name">
-                  ${item.content}
+                  ${content}
                 </div>
                 <button class="details__coupon coupon">
                   <?xml version="1.0" encoding="iso-8859-1"?>
@@ -251,12 +252,13 @@
               });
               copy(".details");
             }
-            // copy();
           } catch (err) {
             console.log(err);
           }
         }
-      } catch {}
+      } catch (err) {
+        console.log(err);
+      }
     })();
   };
   /******/
