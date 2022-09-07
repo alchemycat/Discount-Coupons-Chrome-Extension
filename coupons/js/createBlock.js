@@ -1,44 +1,65 @@
-function createBlock(type, item, parent, targetColor) {
+function createBlock(parentClass, type, item, parent, targetColor) {
   let block = document.createElement("div");
-  block.setAttribute("data-id", item.id);
-  block.classList.add("stores__block");
 
-  let info = document.createElement("div");
-  info.classList.add("stores__info");
+  block.classList.add(`${parentClass}__block`);
+  let info;
+  if (parentClass == "stores") {
+    block.setAttribute("data-id", item.id);
 
-  block.append(info);
+    info = document.createElement("div");
+    info.classList.add(`${parentClass}__info`);
+    block.append(info);
 
-  let icon = document.createElement("div");
-  icon.classList.add("stores__icon");
-  icon.classList.add(targetColor);
+    let icon = document.createElement("div");
+    icon.classList.add(`${parentClass}__icon`);
+    icon.classList.add(targetColor);
+    info.append(icon);
 
-  info.append(icon);
-
-  let letter = document.createElement("span");
-  letter.classList.add("stores__letter");
-  letter.textContent = item.name[0];
-  icon.append(letter);
+    let letter = document.createElement("span");
+    letter.classList.add(`${parentClass}__letter`);
+    letter.textContent = item.name[0];
+    icon.append(letter);
+  }
 
   let details = document.createElement("div");
-  details.classList.add("stores__details");
-  info.append(details);
 
-  let name = document.createElement("div");
-  name.textContent = item.name;
-  name.classList.add("stores__name");
+  if (parentClass == "stores") {
+    details.classList.add(`${parentClass}__details`);
+    info.append(details);
 
-  let count = document.createElement("div");
-  count.classList.add("stores__count");
+    let name = document.createElement("div");
+    name.textContent = item.name;
+    name.classList.add(`${parentClass}__name`);
 
-  count.textContent = `${item.coupon_count} ${type}(s)`;
+    details.append(name);
+  } else {
+    details.classList.add(`${parentClass}__text`);
+    block.append(details);
 
-  details.append(name);
-  details.append(count);
+    let title = document.createElement("div");
+    title.classList.add(`${parentClass}__title`);
+    title.textContent = "Aliexpress Top Product Ranking";
+
+    let name = document.createElement("div");
+    name.textContent = item.name;
+    name.classList.add(`${parentClass}__name`);
+
+    details.append(name);
+    details.append(title);
+  }
+
+  if (parentClass == "stores") {
+    let count = document.createElement("div");
+    count.classList.add(`${parentClass}__count`);
+
+    count.textContent = `${item.coupon_count} ${type}(s)`;
+    details.append(count);
+  }
 
   if (item.code) {
     let coupon = document.createElement("button");
 
-    coupon.setAttribute("class", "stores__coupon coupon");
+    coupon.setAttribute("class", `${parentClass}__coupon coupon`);
     block.append(coupon);
 
     let svg = `<?xml version="1.0" encoding="iso-8859-1"?>
@@ -89,6 +110,13 @@ function createBlock(type, item, parent, targetColor) {
     code.classList.add("code");
     code.textContent = item.code;
     coupon.append(code);
+  }
+
+  if (!item.code && parentClass != "stores") {
+    let buttonMore = document.createElement("button");
+    buttonMore.classList.add("details__more");
+    buttonMore.textContent = "Learn more";
+    details.append(buttonMore);
   }
 
   parent.append(block);
