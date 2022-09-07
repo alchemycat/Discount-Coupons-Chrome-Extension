@@ -37,7 +37,8 @@ window.onload = () => {
           shop.textContent = shopName;
 
           stores.classList.add("dnone");
-
+          const loader = document.querySelector(".loader__img");
+          loader.classList.remove("dnone");
           chrome.runtime.sendMessage({
             type: "GET_DATA_ID",
             id: e.target.getAttribute("data-id"),
@@ -57,7 +58,8 @@ window.onload = () => {
           shop.textContent = shopName;
 
           stores.classList.add("dnone");
-
+          const loader = document.querySelector(".loader__img");
+          loader.classList.remove("dnone");
           chrome.runtime.sendMessage({
             type: "GET_DATA_ID",
             id: id,
@@ -84,6 +86,8 @@ window.onload = () => {
     close();
 
     try {
+      const loader = document.querySelector(".loader__img");
+      loader.classList.remove("dnone");
       chrome.runtime.sendMessage({
         type: "GET_MAIN_DATA",
       });
@@ -91,9 +95,11 @@ window.onload = () => {
         //Тут чекаємо на повідомлення чи змінилась сторінка
         if (response.type == "MAIN_DATA") {
           showData(response.data, "stores");
+          loader.classList.add("dnone");
         }
         if (response.type == "ID_DATA") {
           showData(response.data, "details");
+          loader.classList.add("dnone");
         }
       });
       function showData(data, type) {
