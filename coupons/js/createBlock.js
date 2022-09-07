@@ -36,16 +36,17 @@ function createBlock(parentClass, type, item, parent, targetColor) {
     details.classList.add(`${parentClass}__text`);
     block.append(details);
 
-    let title = document.createElement("div");
-    title.classList.add(`${parentClass}__title`);
-    title.textContent = "Aliexpress Top Product Ranking";
+    if (type != "coupon") {
+      let title = document.createElement("div");
+      title.classList.add(`${parentClass}__title`);
+      title.textContent = "Aliexpress Top Product Ranking";
+      details.append(title);
+    }
 
     let name = document.createElement("div");
-    name.textContent = item.name;
+    name.textContent = item.content || "empty";
     name.classList.add(`${parentClass}__name`);
-
     details.append(name);
-    details.append(title);
   }
 
   if (parentClass == "stores") {

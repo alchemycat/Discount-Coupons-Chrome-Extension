@@ -102,7 +102,6 @@ window.onload = () => {
         console.log(type);
         console.log(`data: ${JSON.stringify(data)}`);
         try {
-          let template;
           let wrapper;
           let childs;
 
