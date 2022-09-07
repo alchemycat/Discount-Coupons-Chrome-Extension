@@ -53,7 +53,9 @@ function createBlock(parentClass, type, item, parent, targetColor) {
     let count = document.createElement("div");
     count.classList.add(`${parentClass}__count`);
 
-    count.textContent = `${item.coupon_count} ${type}(s)`;
+    count.textContent = `${
+      item.coupon_count || item.campaign_count
+    } ${type}(s)`;
     details.append(count);
   }
 
@@ -117,7 +119,7 @@ function createBlock(parentClass, type, item, parent, targetColor) {
     let buttonMore = document.createElement("button");
     buttonMore.classList.add("details__more");
     buttonMore.textContent = "Learn more";
-    details.append(buttonMore);
+    block.append(buttonMore);
   }
 
   parent.append(block);

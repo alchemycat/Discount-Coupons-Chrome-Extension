@@ -2,7 +2,6 @@ window.onload = () => {
   (async () => {
     //Копирование купонов
     function copy(parentSelector) {
-      console.log("copied");
       const parent = document.querySelector(parentSelector);
       const coupons = parent.querySelectorAll(".coupon");
       coupons.forEach((item) => {
@@ -30,7 +29,6 @@ window.onload = () => {
       });
 
       function openDetails(e) {
-        console.log(e.target);
         if (e.target.getAttribute("data-id")) {
           let shopName = e.target.querySelector(".stores__name").textContent;
 
@@ -99,8 +97,6 @@ window.onload = () => {
         }
       });
       function showData(data, type) {
-        console.log(type);
-        console.log(`data: ${JSON.stringify(data)}`);
         try {
           let wrapper;
           let childs;

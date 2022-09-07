@@ -25,8 +25,6 @@ chrome.runtime.onMessage.addListener(async (response, sender, sendResponse) => {
       });
   }
 
-  console.log(response);
-
   if (response.type == "GET_DATA_ID") {
     console.log(`id: ${response.id}`);
     fetch(
@@ -39,10 +37,15 @@ chrome.runtime.onMessage.addListener(async (response, sender, sendResponse) => {
     )
       .then((response) => response.json())
       .then((body) => {
-        let coupons = body.data.coupon;
+        let c;
+        if (body.data.coupon.length) {
+          c = body.data.coupon;
+        } else {
+          c = body.data.campaign;
+        }
         chrome.runtime.sendMessage({
           type: "ID_DATA",
-          data: coupons,
+          data: c,
         });
       });
   }
