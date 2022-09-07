@@ -6,17 +6,21 @@
   \************************/
   window.onload = () => {
     (async () => {
-      function copy() {
-        const coupons = document.querySelectorAll(".coupon");
+      function copy(parentSelector) {
+        console.log("copied");
+        const parent = document.querySelector(parentSelector);
+        const coupons = parent.querySelectorAll(".coupon");
         coupons.forEach((item) => {
           item.addEventListener("click", () => {
             let code = item.querySelector(".code");
             navigator.clipboard.writeText(code.textContent);
             let codeText = code.textContent;
             code.textContent = "Copied";
+            item.setAttribute("disabled", true);
             setTimeout(() => {
               code.textContent = codeText;
-            }, 300);
+              item.removeAttribute("disabled");
+            }, 200);
           });
         });
       }
@@ -93,7 +97,7 @@
                   <div class="stores__count">${item.coupon_count} coupon (s)</div>
                 </div>
               </div>
-              <div class="stores__coupon coupon">
+              <button class="stores__coupon coupon">
                 <?xml version="1.0" encoding="iso-8859-1"?>
                 <!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                 <svg
@@ -135,12 +139,12 @@
                   <g></g>
                 </svg>
                 <span class="code">${item.code}</span>
-              </div>
+              </button>
             </div>`;
-                wrapper.insertAdjacentHTML("afterbegin", template);
+                wrapper.insertAdjacentHTML("beforeend", template);
               });
               open();
-              copy();
+              copy(".stores");
             } else {
               wrapper = document.querySelector(".details__wrapper");
               childs = document.querySelectorAll(".details__block");
@@ -157,7 +161,7 @@
                 <div class="details__name">
                   ${item.content}
                 </div>
-                <div class="details__coupon coupon">
+                <button class="details__coupon coupon">
                   <?xml version="1.0" encoding="iso-8859-1"?>
                   <svg
                     version="1.1"
@@ -198,10 +202,11 @@
                     <g></g>
                   </svg>
                   <span class="code">${item.code}</span>
-                </div>
+                </button>
               </div>`;
-                wrapper.insertAdjacentHTML("afterbegin", template);
+                wrapper.insertAdjacentHTML("beforeend", template);
               });
+              copy(".details");
             }
             // copy();
           } catch (err) {
