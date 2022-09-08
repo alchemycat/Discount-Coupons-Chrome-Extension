@@ -100,6 +100,7 @@ window.onload = () => {
           loader.classList.add("dnone");
         }
         if (response.type == "ID_DATA") {
+          console.log(response.data);
           showData(response.data, "details");
           loader.classList.add("dnone");
         }

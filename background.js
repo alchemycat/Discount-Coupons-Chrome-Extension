@@ -12,12 +12,26 @@ chrome.runtime.onMessage.addListener(async (response, sender, sendResponse) => {
       }
     )
       .then((response) => response.json())
-      // .then((body) => {
-      //   return body.data.filter((item) => item.coupon_count);
-      // })
+
       .then((body) => body.data)
+      .then((data) => {
+        let names = [];
+        let finalArr = [];
+        console.log(data);
+        data.forEach((item) => {
+          if (!names.includes(item.name)) {
+            names.push(item.name);
+            finalArr.push(item);
+            console.log(finalArr);
+          } else {
+            let index = names.indexOf(item.name);
+
+            finalArr[index].id = `${finalArr[index].id} ${item.id}`;
+          }
+        });
+        return finalArr;
+      })
       .then((json) => {
-        // sendResponse({ data: json });
         chrome.runtime.sendMessage({
           type: "MAIN_DATA",
           data: json,
@@ -26,27 +40,38 @@ chrome.runtime.onMessage.addListener(async (response, sender, sendResponse) => {
   }
 
   if (response.type == "GET_DATA_ID") {
-    console.log(`id: ${response.id}`);
-    fetch(
-      `https://extension.biggo.com/api/store.php?method=store_detail&id=${response.id}`,
-      {
-        headers: {
-          "content-type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((body) => {
-        let c;
-        if (body.data.coupon.length) {
-          c = body.data.coupon;
-        } else {
-          c = body.data.campaign;
+    let json = [];
+
+    let ids = response.id.split(" ");
+
+    for (let i = 0; i < ids.length; i++) {
+      console.log(`id: ${ids[i]}`);
+      let result = await fetch(
+        `https://extension.biggo.com/api/store.php?method=store_detail&id=${ids[i]}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
         }
+      )
+        .then((response) => response.json())
+        .then((body) => {
+          let c;
+          if (body.data.coupon.length) {
+            c = body.data.coupon;
+          } else {
+            c = body.data.campaign;
+          }
+          return c;
+        });
+      json = json.concat(result);
+
+      if (i == ids.length - 1) {
         chrome.runtime.sendMessage({
           type: "ID_DATA",
-          data: c,
+          data: json,
         });
-      });
+      }
+    }
   }
 });
