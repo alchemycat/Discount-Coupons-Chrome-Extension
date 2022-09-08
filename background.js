@@ -27,6 +27,12 @@ chrome.runtime.onMessage.addListener(async (response, sender, sendResponse) => {
             let index = names.indexOf(item.name);
 
             finalArr[index].id = `${finalArr[index].id} ${item.id}`;
+            finalArr[index].campaign_count = `${
+              +finalArr[index].campaign_count + +item.campaign_count
+            }`;
+            finalArr[index].coupon_count = `${
+              +finalArr[index].coupon_count + +item.coupon_count
+            }`;
           }
         });
         return finalArr;

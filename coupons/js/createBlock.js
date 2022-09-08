@@ -54,10 +54,14 @@ function createBlock(parentClass, type, item, parent, targetColor) {
     let count = document.createElement("div");
     count.classList.add(`${parentClass}__count`);
 
-    count.textContent = `${
-      item.coupon_count || item.campaign_count
-    } ${type}(s)`;
+    count.textContent = `${item.campaign_count} campaign(s)`;
     details.append(count);
+
+    let couponCount = document.createElement("div");
+    couponCount.classList.add(`${parentClass}__count`);
+
+    couponCount.textContent = `${item.coupon_count} coupon(s)`;
+    details.append(couponCount);
   }
 
   if (item.code) {
