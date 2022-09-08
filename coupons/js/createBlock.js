@@ -45,8 +45,7 @@ function createBlock(parentClass, type, item, parent, targetColor) {
 
     let name = document.createElement("div");
     name.textContent = item.content || "-";
-    console.log(name);
-    console.log(type);
+
     name.classList.add(`${parentClass}__name`);
     details.append(name);
   }

@@ -1,5 +1,7 @@
 window.onload = () => {
   (async () => {
+    new SimpleBar(document.getElementById("body"));
+
     //Копирование купонов
     function copy(parentSelector) {
       const parent = document.querySelector(parentSelector);
